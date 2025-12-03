@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>iShare – Pricing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-light: #111827;
+      --card-bg: #020617;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.15);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --badge-basic: #6b7280;
+      --badge-enterprise: #22c55e;
+      --radius-lg: 18px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #020617 100%);
+      color: var(--text-main);
+      padding: 32px 16px 40px;
+    }
+
+    .pricing-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .pricing-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+
+    .pricing-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+    }
+
+    .plan-card {
+      position: relative;
+      background: linear-gradient(145deg, #020617, #020617 50%, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 22px 20px 24px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition:
+        transform 0.18s ease-out,
+        box-shadow 0.18s ease-out,
+        border-color 0.18s ease-out,
+        background 0.18s ease-out;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, #020617, #020617 52%, #020617);
+    }
+
+    .plan-card--pro {
+      background: radial-gradient(circle at top left, #111827, #020617 52%, #020617);
+      border-color: var(--accent-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .plan-card--pro:hover {
+      border-color: var(--accent);
+    }
+
+    .plan-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .plan-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .plan-badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(156, 163, 175, 0.6);
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .plan-badge--pro {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #dbeafe;
+    }
+
+    .plan-badge--basic {
+      border-color: var(--badge-basic);
+      color: #e5e7eb;
+    }
+
+    .plan-badge--enterprise {
+      border-color: var(--badge-enterprise);
+      color: #bbf7d0;
+    }
+
+    .plan-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .divider {
+      height: 1px;
+      background: radial-gradient(circle, #374151, transparent 65%);
+      opacity: 0.5;
+      margin: 6px 0 2px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      color: #e5e7eb;
+    }
+
+    .feature-icon {
+      margin-top: 2px;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .feature-muted {
+      color: var(--text-muted);
+      opacity: 0.9;
+    }
+
+    .plan-footer {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .best-for-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6b7280;
+    }
+
+    .best-for-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .plan-cta {
+      margin-top: 4px;
+      padding-top: 8px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .plan-button {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition:
+        background 0.18s ease-out,
+        border-color 0.18s ease-out,
+        transform 0.12s ease-out;
+    }
+
+    .plan-button span {
+      font-size: 0.95em;
+    }
+
+    .plan-button:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: #e5e7eb;
+      transform: translateY(-1px);
+    }
+
+    .plan-button--pro {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0b1120;
+    }
+
+    .plan-button--pro:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <section class="pricing-wrapper">
+    <header class="pricing-header">
+      <h1 class="pricing-title">
+  <img src="img/lg.png" alt="iShare Logo" style="height: 32px; vertical-align: middle; margin-right: 8px;">
+  Standard 3-Tier Subscription Model
+</h1>
+
+      <p class="pricing-subtitle">
+        A subscription structure designed for organizations running fundraising and
+        capital campaigns, from early-stage nonprofits to large institutions.
+      </p>
+    </header>
+
+    <div class="pricing-grid">
+      <!-- BASIC -->
+      <article class="plan-card">
+        <div class="plan-header-row">
+          <h2 class="plan-name">Basic</h2>
+          <span class="plan-badge plan-badge--basic">Starter</span>
+        </div>
+        <p class="plan-tagline">
+          Essential tools for presenting fundraising projects.
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="section-label">Features</p>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>2D plans and basic 3D viewing</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Project descriptions, campaign goals and milestones</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Viewing Naming Opportunities (read-only)</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Static images and media galleries</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Up to 3 active projects</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Giftabulator (same unified tool across all plans)</span>
+          </li>
+          <li class="feature-item feature-muted">
+            <span class="feature-icon">✖</span>
+            <span>No AI features</span>
+          </li>
+          <li class="feature-item feature-muted">
+            <span class="feature-icon">✖</span>
+            <span>No Unreal Engine environments</span>
+          </li>
+        </ul>
+
+        <div class="plan-footer">
+          <div>
+            <p class="best-for-title">Best for</p>
+            <p class="best-for-text">
+              Small nonprofits, early-stage campaigns, and introductory donor presentations.
+            </p>
+          </div>
+          <div class="plan-cta">
+            <button class="plan-button" type="button">
+              <span>Choose Basic</span> →
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- PRO -->
+      <article class="plan-card plan-card--pro">
+        <div class="plan-header-row">
+          <h2 class="plan-name">Pro</h2>
+          <span class="plan-badge plan-badge--pro">Most Popular</span>
+        </div>
+        <p class="plan-tagline">
+          Advanced visualization and donor engagement capabilities.
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="section-label">Features</p>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Full 3D navigation and 360° environments</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>
+              Interactive Naming Opportunities (booking, status tracking, notifications)
+            </span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Giftabulator (same unified tool as Basic and Enterprise)</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>
+              AI Assistant: auto-generated project descriptions, donor-friendly
+              explanations of project zones, and tailored donor suggestions
+            </span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Presentation modes for major donor meetings</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Static Unreal Engine scenes (renders and panoramas)</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Up to 20 active projects</span>
+          </li>
+        </ul>
+
+        <div class="plan-footer">
+          <div>
+            <p class="best-for-title">Best for</p>
+            <p class="best-for-text">
+              Growing organizations, schools, hospitals, museums, and mid-to-large
+              fundraising campaigns.
+            </p>
+          </div>
+          <div class="plan-cta">
+            <button class="plan-button plan-button--pro" type="button">
+              <span>Choose Pro</span> →
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ENTERPRISE -->
+      <article class="plan-card">
+        <div class="plan-header-row">
+          <h2 class="plan-name">Enterprise</h2>
+          <span class="plan-badge plan-badge--enterprise">For Large Campaigns</span>
+        </div>
+        <p class="plan-tagline">
+          Immersive, high-performance environment for large-scale fundraising.
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="section-label">Features</p>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>
+              Advanced interactive Unreal Engine spaces (animated, real-time, interactive)
+            </span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>
+              Full AI Suite: giving forecast models, donor-scenario simulations,
+              and personalized donor journeys
+            </span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Giftabulator (same unified tool across all plans)</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>API access, integrations, and white-label options</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>Unlimited projects</span>
+          </li>
+          <li class="feature-item">
+            <span class="feature-icon">✔</span>
+            <span>VR / immersive presentations for capital campaigns</span>
+          </li>
+        </ul>
+
+        <div class="plan-footer">
+          <div>
+            <p class="best-for-title">Best for</p>
+            <p class="best-for-text">
+              Universities, major foundations, large development projects, and
+              multi-million fundraising campaigns.
+            </p>
+          </div>
+          <div class="plan-cta">
+            <button class="plan-button" type="button">
+              <span>Contact Sales</span> →
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</body>
+</html>
