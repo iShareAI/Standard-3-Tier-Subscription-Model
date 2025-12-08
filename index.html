@@ -269,6 +269,13 @@
 
 
 <section class="hero-arcware">
+
+  <!-- 🎥 ВИДЕО ФОН -->
+  <video class="intro-video" autoplay muted loop playsinline>
+    <source src="img/mov.mp4" type="video/mp4">
+  </video>
+
+  <!-- ARCWARE STREAM (ПОКА ПОД ВИДЕО) -->
   <iframe
     id="arcwareFrame"
     src="https://share.arcware.cloud/v1/share-4bf941d3-ac09-4304-90bd-d30451498401"
@@ -276,7 +283,7 @@
     tabindex="0"
   ></iframe>
 
-  
+  <!-- Оверлей "нажми, чтобы начать" -->
   <div class="hero-overlay" id="heroOverlay">
     <div class="hero-overlay-inner">
       <h2>Click to start experience</h2>
@@ -289,7 +296,7 @@
 <style>
   .hero-arcware {
     width: 100%;
-    height: 100vh; /* Fullscreen */
+    height: 100vh;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -297,21 +304,41 @@
     background: #000;
   }
 
+  /* 🎥 Видео как ФОН */
+  .intro-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+  }
+
+  /* Arcware iframe (пока скрыт под видео) */
   .hero-arcware iframe {
     width: 100%;
     height: 100%;
     border: none;
-    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0; /* появится после Start */
+    transition: opacity 0.8s ease;
   }
 
+  /* Оверлей */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(3,7,18,0.98));
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    transition: opacity 0.6s ease;
   }
 
   .hero-overlay-inner {
@@ -324,27 +351,14 @@
     box-shadow: 0 18px 40px rgba(0,0,0,0.8);
   }
 
-  .hero-overlay-inner h2 {
-    margin-bottom: 8px;
-    font-size: 1.4rem;
-  }
-
-  .hero-overlay-inner p {
-    margin-bottom: 16px;
-    font-size: 0.9rem;
-    color: #9ca3af;
-  }
-
   #heroStartBtn {
     padding: 10px 22px;
     border-radius: 999px;
     border: 1px solid #3b82f6;
     background: #3b82f6;
     color: #0b1120;
-    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     cursor: pointer;
   }
 
@@ -355,22 +369,30 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var btn = document.getElementById('heroStartBtn');
-    var overlay = document.getElementById('heroOverlay');
-    var frame = document.getElementById('arcwareFrame');
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('heroStartBtn');
+  const overlay = document.getElementById('heroOverlay');
+  const frame = document.getElementById('arcwareFrame');
+  const video = document.querySelector('.intro-video');
 
-    if (btn && overlay && frame) {
-      btn.addEventListener('click', function () {
-        // даём фокус iframe, чтобы клавиатура ушла внутрь потока
-        frame.focus();
-        // убираем оверлей
-        overlay.style.opacity = '0';
-        overlay.style.pointerEvents = 'none';
-      });
-    }
+  btn.addEventListener('click', function () {
+
+   
+    frame.focus();
+
+   
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+
+   
+    video.style.opacity = '0';
+
+    
+    frame.style.opacity = '1';
   });
+});
 </script>
+
 
 
 
@@ -585,6 +607,7 @@
   </section>
 </body>
 </html>
+
 
 
 
