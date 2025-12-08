@@ -268,12 +268,22 @@
 <body>
 
 
-<!-- FULLSCREEN ARCWARE STREAM -->
 <section class="hero-arcware">
   <iframe
+    id="arcwareFrame"
     src="https://share.arcware.cloud/v1/share-4bf941d3-ac09-4304-90bd-d30451498401"
     allow="autoplay; fullscreen; xr-spatial-tracking; clipboard-read; clipboard-write"
+    tabindex="0"
   ></iframe>
+
+  <!-- Оверлей "нажми, чтобы начать" -->
+  <div class="hero-overlay" id="heroOverlay">
+    <div class="hero-overlay-inner">
+      <h2>Click to start experience</h2>
+      <p>After start, use <strong>W A S D</strong> and mouse to navigate.</p>
+      <button id="heroStartBtn">Start</button>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -293,7 +303,74 @@
     border: none;
     display: block;
   }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(3,7,18,0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .hero-overlay-inner {
+    text-align: center;
+    max-width: 480px;
+    padding: 24px 28px;
+    border-radius: 20px;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(148,163,184,0.5);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.8);
+  }
+
+  .hero-overlay-inner h2 {
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+  }
+
+  .hero-overlay-inner p {
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+
+  #heroStartBtn {
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid #3b82f6;
+    background: #3b82f6;
+    color: #0b1120;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #heroStartBtn:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+  }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('heroStartBtn');
+    var overlay = document.getElementById('heroOverlay');
+    var frame = document.getElementById('arcwareFrame');
+
+    if (btn && overlay && frame) {
+      btn.addEventListener('click', function () {
+        // даём фокус iframe, чтобы клавиатура ушла внутрь потока
+        frame.focus();
+        // убираем оверлей
+        overlay.style.opacity = '0';
+        overlay.style.pointerEvents = 'none';
+      });
+    }
+  });
+</script>
 
 
 
@@ -508,4 +585,5 @@
   </section>
 </body>
 </html>
+
 
